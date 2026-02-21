@@ -1,0 +1,118 @@
+{
+  "datasets": [
+    {
+      "name": "b2816a2d",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "USE CATALOG `workspace`;\n",
+        "USE SCHEMA `salesdb`;\n",
+        "\n",
+        "\n",
+        "--total orders over time\n",
+        "select\n",
+        "  date_trunc('month', order_date) as month,\n",
+        "  sum(sales_amount)\n",
+        "  from fact_sales\n",
+        "  group by date_trunc('month', order_date)"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "dfef7658",
+      "displayName": "Untitled Page",
+      "layout": [
+        {
+          "widget": {
+            "name": "ee063bb2",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b2816a2d",
+                  "fields": [
+                    {
+                      "name": "month",
+                      "expression": "`month`"
+                    },
+                    {
+                      "name": "sum(sum(sales_amount))",
+                      "expression": "SUM(`sum(sales_amount)`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "month",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(sum(sales_amount))",
+                  "displayName": "sum(sales_amount)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Sales over time",
+                "showTitle": true,
+                "showDescription": false
+              },
+              "mark": {
+                "layout": "layer"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 5
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "name": "11f60e66",
+      "displayName": "Global Filters",
+      "layout": [
+        {
+          "widget": {
+            "name": "89a9dad5",
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-single-select",
+              "encodings": {},
+              "frame": {
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
